@@ -1,11 +1,9 @@
 {
-	"name": "raw-loader",
-	"version": "0.5.1",
-	"author": "Tobias Koppers @sokra",
-	"description": "raw loader module for webpack",
-	"repository": {
-		"type": "git",
-		"url": "git@github.com:webpack/raw-loader.git"
-	},
-	"license": "MIT"
+	"name": "isomorphic-region-loader",
+	"version": "0.0.1",
+	"author": "Dariusz Filipiak @darekf77",
+	"license": "MIT",
+	"devDependencies": {
+		"loader-utils": "^1.1.0"
+	}
 }

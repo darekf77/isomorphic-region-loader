@@ -1,13 +1,29 @@
-/*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Author Tobias Koppers @sokra
-*/
-module.exports = function(source) {
-  this.value = source;
+var loaderUtils = require("loader-utils");
 
-  var json = JSON.stringify(source)
-    .replace(/\u2028/g, '\\u2028')
-    .replace(/\u2029/g, '\\u2029');
+function StripBlockLoader(content) {
+  var options = loaderUtils.getOptions(this) || {};
+  var platform = options.platform || 'browser';
 
-  return "module.exports = " + json;
+  if (platform === 'browser') {
+    content = replace(content, ["backend", "nodejs", "node"]);
+  } else {
+    content = replace(content, ["browser", "dom", "client"]);
+  }
+
+
+  if (this.cacheable) {
+    this.cacheable(true);
+  }
+
+  return content;
 }
+
+function replace(c, words) {
+  if (words.length === 0) return c;
+  var word = words.shift();
+  var regexPattern = new RegExp("[\\t ]*\\/\\/\\s*#?region\\s+" + word + " ?[\\s\\S]*?\\/\\/\\s*#?endregion ?[\\t ]*\\n?", "g")
+  c = c.replace(regexPattern, '');
+  return replace(c, words);
+}
+
+module.exports = StripBlockLoader;
