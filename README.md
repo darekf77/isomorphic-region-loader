@@ -1,8 +1,3 @@
-[![npm][npm]][npm-url]
-[![node][node]][node-url]
-[![deps][deps]][deps-url]
-[![chat][chat]][chat-url]
-
 <div align="center">
   <h1>Isomorphic #region Loader</h1>
   <p>A loader for webpack that lets you strip #regions code from bundle.</p>
@@ -64,5 +59,5 @@ browser things.
 
 **In your application**
 ```js
-import txt from '!isomorphic-region-loader!./file.txt';
+import {  ExampleIsomorphicClass } from '!isomorphic-region-loader!./isomorphic-class.ts';
 ```
