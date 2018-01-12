@@ -3,9 +3,10 @@ var loaderUtils = require("loader-utils");
 function StripBlockLoader(content) {
   var options = loaderUtils.getOptions(this) || {};
   var platform = options.platform || 'browser';
-
+  content = replaceModule(content, 'isomorphic-rest', 'isomorphic-rest/client')
   if (platform === 'browser') {
     content = replace(content, ["backend", "nodejs", "node"]);
+
   } else {
     content = replace(content, ["browser", "dom", "client"]);
   }
@@ -16,6 +17,12 @@ function StripBlockLoader(content) {
   }
 
   return content;
+}
+
+function replaceModule(c, moduleName, destModulesName) {
+  var es5 = new RegExp("require\\((\\'|\")" + moduleName + "(\\'|\")\\)", 'g');
+  c = c.replace(es5, "require(\"" + destModulesName + "\")");
+  return c;
 }
 
 function replace(c, words) {
