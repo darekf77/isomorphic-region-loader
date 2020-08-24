@@ -1,9 +1,28 @@
 {
-	"name": "isomorphic-region-loader",
-	"version": "0.0.3",
-	"author": "Dariusz Filipiak @darekf77",
-	"license": "MIT",
-	"devDependencies": {
-		"loader-utils": "^1.1.0"
-	}
+  "tnp": {
+    "resources": [],
+    "overrided": {
+      "linkedFolders": [],
+      "ignoreDepsPattern": [
+        "*"
+      ],
+      "includeAsDev": [],
+      "includeOnly": [],
+      "dependencies": {}
+    },
+    "linkedProjects": [],
+    "libReleaseOptions": {
+      "nodts": false,
+      "obscure": false,
+      "ugly": false
+    }
+  },
+  "name": "isomorphic-region-loader",
+  "version": "0.0.3",
+  "author": "Dariusz Filipiak @darekf77",
+  "license": "MIT",
+  "devDependencies": {
+    "loader-utils": "^1.1.0"
+  },
+  "dependencies": {}
 }
