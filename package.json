@@ -15,7 +15,9 @@
       "nodts": false,
       "obscure": false,
       "ugly": false
-    }
+    },
+    "license": "MIT",
+    "author": "Dariusz Filipiak @darekf77"
   },
   "name": "isomorphic-region-loader",
   "version": "0.0.3",
