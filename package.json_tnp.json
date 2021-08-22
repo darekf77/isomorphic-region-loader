@@ -16,5 +16,6 @@
     "ugly": false
   },
   "license": "MIT",
-  "author": "Dariusz Filipiak @darekf77"
+  "author": "Dariusz Filipiak @darekf77",
+  "private": true
 }
