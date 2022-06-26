@@ -237,5 +237,6 @@
     "watch": "1.0.2",
     "zone.js": "~0.11.4"
   },
-  "private": false
+  "private": false,
+  "lastBuildTagHash": "1ed011a926e211261d5c802bca1db4cbb9421c3e"
 }
