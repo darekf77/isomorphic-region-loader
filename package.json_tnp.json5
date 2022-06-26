@@ -17,5 +17,7 @@
   },
   "license": "MIT",
   "author": "Dariusz Filipiak @darekf77",
-  "private": true
+  "type": "isomorphic-lib",
+  "version": "v3",
+  "private": false
 }
