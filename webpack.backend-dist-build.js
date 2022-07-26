@@ -18,7 +18,7 @@ const outputFolder = 'dist';
 const outputPath = __dirname + '/' + outputFolder;
 
 module.exports = {
-  entry: './src/index.ts',
+  entry: './tmp-source-dist/index.ts',
   target: 'node',
   output: {
     path: outputPath,
@@ -34,7 +34,7 @@ module.exports = {
       {
         test: /\.ts$/,
         exclude: path.resolve(__dirname, "node_modules"),
-        loaders: ['ts-loader','isomorphic-region-loader']
+        loaders: ['ts-loader']
       },
       // {
       //   test: /\.ts$/,
