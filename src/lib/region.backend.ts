@@ -113,6 +113,9 @@ export class Region {
             const verticalLength = regionOrString.toString().split('\n').length - 1;
 
             if (regionOrString.containsTitle(regionTag)) {
+              if (regionTag.toLowerCase() === '@websql'.toLowerCase()) {
+                out = `${_.times(verticalLength).map(() => Models.label.backendCode + '\n').join('')}  ${out}`;
+              }
               if (regionTag.toLowerCase() === '@backend'.toLowerCase()) {
                 out = `${_.times(verticalLength).map(() => Models.label.backendCode + '\n').join('')}  ${out}`;
               }
@@ -122,8 +125,19 @@ export class Region {
               if (regionTag.toLowerCase() === '@browser'.toLowerCase()) {
                 out = `${_.times(verticalLength).map(() => Models.label.browserCode + '\n').join('')}  ${out}`;
               }
+              if (regionTag.toLowerCase() === '@websqlOnly'.toLowerCase()) {
+                out = `${_.times(verticalLength).map(() => Models.label.backendCode + '\n').join('')}  ${out}`;
+              }
               if (
                 regionTag.toLowerCase() === '@backendFunc'.toLowerCase()
+              ) {
+                let spacesPrevious = previous.search(/\S/);
+                spacesPrevious = (spacesPrevious < 0 ? 0 : spacesPrevious);
+                out = `${_.times(verticalLength).map(() => Models.label.backendCode + '\n').join('')}`
+                  + `${_.times(spacesPrevious).map(n => ' ').join('')}  ${out}`;
+              }
+              if (
+                regionTag.toLowerCase() === '@websqlFunc'.toLowerCase()
               ) {
                 let spacesPrevious = previous.search(/\S/);
                 spacesPrevious = (spacesPrevious < 0 ? 0 : spacesPrevious);
