@@ -1,5 +1,6 @@
 {
   "resources": [],
+
   "overrided": {
     "linkedFolders": [],
     "ignoreDepsPattern": [
@@ -9,15 +10,19 @@
     "includeOnly": [],
     "dependencies": {}
   },
+
   "linkedProjects": [],
+  'linkedRepos': [],
+
   "libReleaseOptions": {
     "nodts": false,
     "obscure": false,
     "ugly": false
   },
+
   "license": "MIT",
   "author": "Dariusz Filipiak @darekf77",
   "type": "isomorphic-lib",
   "version": "v3",
-  "private": false
+  "private": false,
 }
