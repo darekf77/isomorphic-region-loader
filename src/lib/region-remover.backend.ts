@@ -42,8 +42,8 @@ export class RegionRemover {
     }
     if (!replacementss) {
       replacementss = [
-        ['@backendFunc', `return (void 0);`],
-        '@backend' as any,
+        ['@back' + 'endFunc', `return (void 0);`],
+        '@bac' + 'kend' as any,
       ];
     }
     return new RegionRemover(absoluteFilePath, fileExtension as any, content, replacementss, project);
