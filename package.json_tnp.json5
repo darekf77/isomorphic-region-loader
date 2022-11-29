@@ -12,6 +12,7 @@
   },
 
   "linkedProjects": [],
+  'smartContainerBuildTarget': '',
   'linkedRepos': [],
 
   "libReleaseOptions": {
@@ -20,6 +21,7 @@
     "ugly": false
   },
 
+  'smartContainerTarget': '',
   "license": "MIT",
   "author": "Dariusz Filipiak @darekf77",
   "type": "isomorphic-lib",
