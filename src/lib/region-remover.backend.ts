@@ -153,7 +153,7 @@ export class RegionRemover {
   }
 
   get output() {
-    return this.root.toString().trimLeft();
+    return this.root.toString();
   }
 
 }
