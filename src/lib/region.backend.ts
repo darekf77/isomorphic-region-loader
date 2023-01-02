@@ -157,7 +157,7 @@ export class Region {
                 // Helpers.log(`this.project "${this.project.name}"`);
                 const configForProject = this.project && this.project.env.config;
                 // Helpers.log(`configForProject "${configForProject}"`);
-                const cutCode = fn(expressionToExecute, configForProject, this.absoluteFilePath);
+                const cutCode = fn(expressionToExecute, configForProject, this.realtiveOrAbsFilePAth);
                 // Helpers.info(`Cut code: "${cutCode}"`);
                 if (cutCode === null) {
                   continue;
@@ -193,8 +193,8 @@ export class Region {
     return this.context.project;
   }
 
-  private get absoluteFilePath() {
-    return this.context.fileAbsolutePath;
+  private get realtiveOrAbsFilePAth() {
+    return this.context.realtiveOrAbsFilePAth;
   }
 
 }

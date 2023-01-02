@@ -26,17 +26,13 @@ export class RegionRemover {
   private readonly START_REGION: RegExp[] = [];
   private readonly END_REGION: RegExp[] = [];
   public static from(
-    absoluteFilePath: string,
+    realtiveOrAbsFilePAth: string,
     content: string,
     replacementss?: any, // Models.dev.Replacement[],
     project?: any, // Project,
   ) {
-    if (!path.isAbsolute(absoluteFilePath)) {
-      Helpers.error(`[region-remover][from] path is not absolute:
-      "${absoluteFilePath}"
-      `, false, true);
-    }
-    let fileExtension = path.extname(absoluteFilePath);
+
+    let fileExtension = path.extname(realtiveOrAbsFilePAth);
     if (fileExtension.startsWith('.')) {
       fileExtension = fileExtension.replace('.', '') as any;
     }
@@ -46,7 +42,7 @@ export class RegionRemover {
         '@bac' + 'kend' as any,
       ];
     }
-    return new RegionRemover(absoluteFilePath, fileExtension as any, content, replacementss, project);
+    return new RegionRemover(realtiveOrAbsFilePAth, fileExtension as any, content, replacementss, project);
   }
 
   private matchStartRegion(l: string) {
@@ -60,7 +56,7 @@ export class RegionRemover {
 
 
   private constructor(
-    public readonly fileAbsolutePath: string,
+    public readonly realtiveOrAbsFilePAth: string,
     fileExtension: ConfigModels.CutableFileExt,
     private content: string,
     replacementss?: any, // Models.dev.Replacement[],
