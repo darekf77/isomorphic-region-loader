@@ -7,7 +7,9 @@
       "*"
     ],
     "includeAsDev": [],
-    "includeOnly": [],
+    "includeOnly": [
+      'tnp-models'
+    ],
     "dependencies": {}
   },
 
