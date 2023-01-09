@@ -3,8 +3,7 @@
   "version": "13.1.16",
   "author": "Dariusz Filipiak @darekf77",
   "license": "MIT",
-  "devDependencies": {},
-  "dependencies": {
+  "devDependencies": {
     "@angular-devkit/build-angular": "~13.3.9",
     "@angular-devkit/core": "~13.3.9",
     "@angular/cdk": "~13.3.9",
@@ -219,7 +218,6 @@
     "tnp-core": "~13.1.56",
     "tnp-db": "~13.1.7",
     "tnp-helpers": "~13.1.10",
-    "tnp-models": "~13.1.8",
     "tnp-ui": "~13.1.27",
     "ts-debug": "1.3.0",
     "ts-loader": "2.3.1",
@@ -235,6 +233,9 @@
     "vpn-split": "~13.1.23",
     "watch": "1.0.2",
     "zone.js": "~0.11.4"
+  },
+  "dependencies": {
+    "tnp-models": "~13.1.8"
   },
   "private": false,
   "lastBuildTagHash": "2a3c1c5d56a0f5e4e5020a85d97407a96dc89d75"
