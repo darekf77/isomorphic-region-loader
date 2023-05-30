@@ -3,14 +3,19 @@
 
   "overrided": {
     "linkedFolders": [],
+
     "ignoreDepsPattern": [
       "*"
     ],
+
     "includeAsDev": [],
+
     "includeOnly": [
       'tnp-models'
     ],
-    "dependencies": {}
+
+    "dependencies": {},
+    'npmFixes': [],
   },
 
   "linkedProjects": [],
