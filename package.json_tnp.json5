@@ -33,6 +33,6 @@
   "license": "MIT",
   "author": "Dariusz Filipiak @darekf77",
   "type": "isomorphic-lib",
-  "version": 'v16',
+  "version": 'v4',
   "private": false,
 }
