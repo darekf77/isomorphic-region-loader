@@ -1,4 +1,34 @@
 {
+  "tnp": {
+    "resources": [],
+    "overrided": {
+      "linkedFolders": [],
+      "ignoreDepsPattern": [
+        "*"
+      ],
+      "includeAsDev": [],
+      "includeOnly": [
+        "tnp-models"
+      ],
+      "dependencies": {},
+      "npmFixes": []
+    },
+    "linkedProjects": [],
+    "smartContainerBuildTarget": "",
+    "linkedRepos": [],
+    "libReleaseOptions": {
+      "nodts": false,
+      "obscure": false,
+      "ugly": false,
+      "includeNodeModules": false
+    },
+    "smartContainerTarget": "",
+    "license": "MIT",
+    "author": "Dariusz Filipiak @darekf77",
+    "type": "isomorphic-lib",
+    "version": "v4",
+    "private": false
+  },
   "name": "isomorphic-region-loader",
   "version": "16.0.40",
   "author": "Dariusz Filipiak @darekf77",
