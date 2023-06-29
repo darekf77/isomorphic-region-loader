@@ -2,6 +2,7 @@ import { Helpers, _ } from 'tnp-core';
 import { Models } from 'tnp-models';
 // import { codeCuttFn } from '../code-cut';
 import type { RegionRemover } from './region-remover.backend';
+import { TAGS } from 'tnp-config';
 
 export class Region {
   constructor(
@@ -113,23 +114,23 @@ export class Region {
             const verticalLength = regionOrString.toString().split('\n').length - 1;
 
             if (regionOrString.containsTitle(regionTag)) {
-              if (regionTag.toLowerCase() === '@websql'.toLowerCase()) {
+              if (regionTag.toLowerCase() === TAGS.WEBSQL.toLowerCase()) {
                 out = `${_.times(verticalLength).map(() => Models.label.backendCode + '\n').join('')}  ${out}`;
               }
-              if (regionTag.toLowerCase() === '@backend'.toLowerCase()) {
+              if (regionTag.toLowerCase() === TAGS.BACKEND.toLowerCase()) {
                 out = `${_.times(verticalLength).map(() => Models.label.backendCode + '\n').join('')}  ${out}`;
               }
-              if (regionTag.toLowerCase() === '@notForNpm'.toLowerCase()) {
+              if (regionTag.toLowerCase() === TAGS.NOT_FOR_NPM.toLowerCase()) {
                 out = `${_.times(verticalLength).map(() => Models.label.notForNpmCode + '\n').join('')}  ${out}`;
               }
-              if (regionTag.toLowerCase() === '@browser'.toLowerCase()) {
+              if (regionTag.toLowerCase() === TAGS.BROWSER.toLowerCase()) {
                 out = `${_.times(verticalLength).map(() => Models.label.browserCode + '\n').join('')}  ${out}`;
               }
-              if (regionTag.toLowerCase() === '@websqlOnly'.toLowerCase()) {
+              if (regionTag.toLowerCase() === TAGS.WEBSQL_ONLY.toLowerCase()) {
                 out = `${_.times(verticalLength).map(() => Models.label.backendCode + '\n').join('')}  ${out}`;
               }
               if (
-                regionTag.toLowerCase() === '@backendFunc'.toLowerCase()
+                regionTag.toLowerCase() === TAGS.BACKEND_FUNC.toLowerCase()
               ) {
                 let spacesPrevious = previous.search(/\S/);
                 spacesPrevious = (spacesPrevious < 0 ? 0 : spacesPrevious);
@@ -137,7 +138,7 @@ export class Region {
                   + `${_.times(spacesPrevious).map(n => ' ').join('')}  ${out}`;
               }
               if (
-                regionTag.toLowerCase() === '@websqlFunc'.toLowerCase()
+                regionTag.toLowerCase() === TAGS.WEBSQL_FUNC.toLowerCase()
               ) {
                 let spacesPrevious = previous.search(/\S/);
                 spacesPrevious = (spacesPrevious < 0 ? 0 : spacesPrevious);
@@ -145,9 +146,9 @@ export class Region {
                   + `${_.times(spacesPrevious).map(n => ' ').join('')}  ${out}`;
               }
               if (
-                regionTag.toLowerCase() === '@cutCodeIfTrue'.toLowerCase()
+                regionTag.toLowerCase() === TAGS.CUT_CODE_IF_TRUE.toLowerCase()
                 ||
-                regionTag.toLowerCase() === '@cutCodeIfFalse'.toLowerCase()
+                regionTag.toLowerCase() === TAGS.CUT_CODE_IF_FALSE.toLowerCase()
               ) {
                 const fn = out as any; // as ReturnType<typeof codeCuttFn>;
                 let expressionToExecute = regionOrString.titleString;
@@ -164,11 +165,11 @@ export class Region {
                 }
                 if (
                   (cutCode && (
-                    regionTag.toLowerCase() === '@cutCodeIfTrue'.toLowerCase()
+                    regionTag.toLowerCase() === TAGS.CUT_CODE_IF_TRUE.toLowerCase()
                   ))
                   ||
                   (!cutCode && (
-                    regionTag.toLowerCase() === '@cutCodeIfFalse'.toLowerCase()
+                    regionTag.toLowerCase() === TAGS.CUT_CODE_IF_FALSE.toLowerCase()
                   ))
                 ) {
                   out = '';
@@ -198,3 +199,4 @@ export class Region {
   }
 
 }
+

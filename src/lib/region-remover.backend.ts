@@ -4,22 +4,8 @@ import { Helpers } from 'tnp-core';
 import { Region } from './region.backend';
 // import type { Project } from '../../../abstract/project';
 import { ConfigModels } from 'tnp-config';
+import { REGEX_REGION, TAGS } from 'tnp-config';
 
-
-const REGEX_REGION = {
-  TS_JS_SCSS_SASS: {
-    START: new RegExp('\\/\\/\\s*\\#region'),
-    END: new RegExp('\\/\\/\\s*\\#endregion'),
-  },
-  HTML: {
-    START: new RegExp('\\<\\!\\-\\-\\s*\\#region'),
-    END: new RegExp('\\<\\!\\-\\-\\s*\\#endregion'),
-  },
-  CSS: {
-    START: new RegExp('\\/\\*\\s*\\#region'),
-    END: new RegExp('\\/\\*\\s*\\#endregion'),
-  },
-};
 
 export class RegionRemover {
   private root: Region;
@@ -33,13 +19,11 @@ export class RegionRemover {
   ) {
 
     let fileExtension = path.extname(realtiveOrAbsFilePAth);
-    if (fileExtension.startsWith('.')) {
-      fileExtension = fileExtension.replace('.', '') as any;
-    }
+
     if (!replacementss) {
       replacementss = [
-        ['@back' + 'endFunc', `return (void 0);`],
-        '@bac' + 'kend' as any,
+        [TAGS.BACKEND_FUNC, `return (void 0);`],
+        TAGS.BACKEND as any,
       ];
     }
     return new RegionRemover(realtiveOrAbsFilePAth, fileExtension as any, content, replacementss, project);
@@ -63,15 +47,15 @@ export class RegionRemover {
     public readonly project?: any, // Project
 
   ) {
-    if ((['js', 'ts', 'scss', 'sass'] as ConfigModels.CutableFileExt[]).includes(fileExtension)) {
+    if ((REGEX_REGION.TS_JS_SCSS_SASS.EXT).includes(fileExtension)) {
       this.START_REGION.push(REGEX_REGION.TS_JS_SCSS_SASS.START);
       this.END_REGION.push(REGEX_REGION.TS_JS_SCSS_SASS.END);
     }
-    if ((['html'] as ConfigModels.CutableFileExt[]).includes(fileExtension)) {
+    if ((REGEX_REGION.HTML.EXT).includes(fileExtension)) {
       this.START_REGION.push(REGEX_REGION.HTML.START);
       this.END_REGION.push(REGEX_REGION.HTML.END);
     }
-    if ((['scss', 'sass', 'css'] as ConfigModels.CutableFileExt[]).includes(fileExtension)) {
+    if ((REGEX_REGION.CSS.EXT).includes(fileExtension)) {
       this.START_REGION.push(REGEX_REGION.CSS.START);
       this.END_REGION.push(REGEX_REGION.CSS.END);
     }
