@@ -1,7 +1,7 @@
 import { _, path } from 'tnp-core';
 // import { Models } from 'tnp-models';
 import { Helpers } from 'tnp-core';
-import { Region } from './region.backend';
+import { Region } from './region';
 // import type { Project } from '../../../abstract/project';
 import { ConfigModels } from 'tnp-config';
 import { REGEX_REGION, TAGS } from 'tnp-config';

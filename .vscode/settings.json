@@ -19,7 +19,7 @@
     "backup": true,
     "module": true,
     "www": true,
-    "Thumbs.db": true,
+    " umbs.db": true,
     ".DS_Store": true,
     "**/.DS_Store": true,
     "npm-debug.log*": true,
@@ -54,6 +54,7 @@
     "logo.svg": true,
     "package.json_tnp.json": true
   },
+  "workbench.colorTheme": "Default Light+",
   "workbench.colorCustomizations": {
     "activityBar.background": "#115309"
   },

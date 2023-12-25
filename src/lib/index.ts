@@ -1,9 +1,9 @@
-//#region @backend
-import { RegionRemover } from "./region-remover.backend";
-//#endregion
+
+import { RegionRemover } from "./region-remover";
+
 
 function StripBrowserCode(content) {
-  //#region @backend
+
 
   // @ts-ignore
   content = RegionRemover.from(this.resourcePath, content, ['@browser']).output + '\n';
@@ -13,12 +13,11 @@ function StripBrowserCode(content) {
   }
 
   return content;
-  //#endregion
 }
 
 export { StripBrowserCode as StripBlockLoader };
-//#region @backend
-export * from './region-remover.backend';
-export * from './region.backend';
-//#endregion
+
+export * from './region-remover';
+export * from './region';
+
 export default StripBrowserCode;

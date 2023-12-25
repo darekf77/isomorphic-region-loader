@@ -1,7 +1,7 @@
 import { Helpers, _ } from 'tnp-core';
 import { Models } from 'tnp-models';
 // import { codeCuttFn } from '../code-cut';
-import type { RegionRemover } from './region-remover.backend';
+import type { RegionRemover } from './region-remover';
 import { TAGS } from 'tnp-config';
 
 export class Region {
