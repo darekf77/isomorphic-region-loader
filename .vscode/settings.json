@@ -19,7 +19,7 @@
     "backup": true,
     "module": true,
     "www": true,
-    " umbs.db": true,
+    "Thumbs.db": true,
     ".DS_Store": true,
     "**/.DS_Store": true,
     "npm-debug.log*": true,
