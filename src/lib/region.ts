@@ -1,5 +1,5 @@
 import { Helpers, _ } from 'tnp-core';
-import { Models } from 'tnp-models';
+import { Replacement, ReplacementString, labelReplacementCode } from './models';
 // import { codeCuttFn } from '../code-cut';
 import type { RegionRemover } from './region-remover';
 import { TAGS } from 'tnp-config';
@@ -7,7 +7,7 @@ import { TAGS } from 'tnp-config';
 export class Region {
   constructor(
     private context: RegionRemover,
-    public replacementss: Models.dev.Replacement[],
+    public replacementss: Replacement[],
     public parent: Region,
     public startIndex: number,
     public endIndex: number,
@@ -74,7 +74,7 @@ export class Region {
     regionWithoutEnd.setEnd(endIndex, lineEnd);
   }
 
-  private containsTitle(s: Models.dev.ReplacementString) {
+  private containsTitle(s: ReplacementString) {
     const res = (this.titleString.search(s) !== -1);
     // Helpers.log(`checking tag (${res}): "${s}" in line: "${this.titleString}"`)
     return res;
@@ -107,7 +107,7 @@ export class Region {
             const rep = replacements[index];
             const isArr = _.isArray(replacements[index]);
 
-            const regionTag = (isArr ? _.first(rep as string[]) : rep) as Models.dev.ReplacementString;
+            const regionTag = (isArr ? _.first(rep as string[]) : rep) as ReplacementString;
 
             let out = (isArr ? rep[1] : '') as string;
 
@@ -115,26 +115,26 @@ export class Region {
 
             if (regionOrString.containsTitle(regionTag)) {
               if (regionTag.toLowerCase() === TAGS.WEBSQL.toLowerCase()) {
-                out = `${_.times(verticalLength).map(() => Models.label.backendCode + '\n').join('')}  ${out}`;
+                out = `${_.times(verticalLength).map(() => labelReplacementCode.backendCode + '\n').join('')}  ${out}`;
               }
               if (regionTag.toLowerCase() === TAGS.BACKEND.toLowerCase()) {
-                out = `${_.times(verticalLength).map(() => Models.label.backendCode + '\n').join('')}  ${out}`;
+                out = `${_.times(verticalLength).map(() => labelReplacementCode.backendCode + '\n').join('')}  ${out}`;
               }
               if (regionTag.toLowerCase() === TAGS.NOT_FOR_NPM.toLowerCase()) {
-                out = `${_.times(verticalLength).map(() => Models.label.notForNpmCode + '\n').join('')}  ${out}`;
+                out = `${_.times(verticalLength).map(() => labelReplacementCode.notForNpmCode + '\n').join('')}  ${out}`;
               }
               if (regionTag.toLowerCase() === TAGS.BROWSER.toLowerCase()) {
-                out = `${_.times(verticalLength).map(() => Models.label.browserCode + '\n').join('')}  ${out}`;
+                out = `${_.times(verticalLength).map(() => labelReplacementCode.browserCode + '\n').join('')}  ${out}`;
               }
               if (regionTag.toLowerCase() === TAGS.WEBSQL_ONLY.toLowerCase()) {
-                out = `${_.times(verticalLength).map(() => Models.label.backendCode + '\n').join('')}  ${out}`;
+                out = `${_.times(verticalLength).map(() => labelReplacementCode.backendCode + '\n').join('')}  ${out}`;
               }
               if (
                 regionTag.toLowerCase() === TAGS.BACKEND_FUNC.toLowerCase()
               ) {
                 let spacesPrevious = previous.search(/\S/);
                 spacesPrevious = (spacesPrevious < 0 ? 0 : spacesPrevious);
-                out = `${_.times(verticalLength).map(() => Models.label.backendCode + '\n').join('')}`
+                out = `${_.times(verticalLength).map(() => labelReplacementCode.backendCode + '\n').join('')}`
                   + `${_.times(spacesPrevious).map(n => ' ').join('')}  ${out}`;
               }
               if (
@@ -142,7 +142,7 @@ export class Region {
               ) {
                 let spacesPrevious = previous.search(/\S/);
                 spacesPrevious = (spacesPrevious < 0 ? 0 : spacesPrevious);
-                out = `${_.times(verticalLength).map(() => Models.label.backendCode + '\n').join('')}`
+                out = `${_.times(verticalLength).map(() => labelReplacementCode.backendCode + '\n').join('')}`
                   + `${_.times(spacesPrevious).map(n => ' ').join('')}  ${out}`;
               }
               if (

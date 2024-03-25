@@ -1,6 +1,7 @@
 
 import { RegionRemover } from "./region-remover";
 
+export * from './models';
 
 function StripBrowserCode(content) {
 

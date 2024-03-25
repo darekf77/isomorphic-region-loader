@@ -2,8 +2,8 @@ import { _, path } from 'tnp-core';
 // import { Models } from 'tnp-models';
 import { Helpers } from 'tnp-core';
 import { Region } from './region';
-// import type { Project } from '../../../abstract/project';
-import { ConfigModels } from 'tnp-config';
+// @ts-ignore
+import { CoreModels } from 'tnp-core/src';
 import { REGEX_REGION, TAGS } from 'tnp-config';
 
 
@@ -41,7 +41,7 @@ export class RegionRemover {
 
   private constructor(
     public readonly realtiveOrAbsFilePAth: string,
-    fileExtension: ConfigModels.CutableFileExt,
+    fileExtension: CoreModels.CutableFileExt,
     private content: string,
     replacementss?: any, // Models.dev.Replacement[],
     public readonly project?: any, // Project
