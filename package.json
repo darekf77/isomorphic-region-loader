@@ -23,7 +23,8 @@
       "includeNodeModules": false,
       "cliBuildNoDts": false,
       "cliBuildObscure": false,
-      "cliBuildIncludeNodeModules": false
+      "cliBuildIncludeNodeModules": false,
+      "cliBuildUglify": false
     },
     "smartContainerTarget": "",
     "license": "MIT",
@@ -317,5 +318,6 @@
     "tnp-models": "~16.5.22"
   },
   "private": false,
-  "lastBuildTagHash": "93bc95ea8594c1267d2ca786f7a9745552fef74d"
+  "lastBuildTagHash": "93bc95ea8594c1267d2ca786f7a9745552fef74d",
+  "main": "dist/app.electron.js"
 }
