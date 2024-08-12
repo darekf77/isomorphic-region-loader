@@ -1,19 +1,18 @@
 {
   "resources": [],
+
   "overrided": {
     "linkedFolders": [],
-    "ignoreDepsPattern": [
-      "*"
-    ],
+    "ignoreDepsPattern": ["*"],
     "includeAsDev": [],
-    "includeOnly": [
-      "tnp-models"
-    ],
+    "includeOnly": ["tnp-models"],
     "dependencies": {},
-    "npmFixes": [],
+    "npmFixes": []
   },
+
   "smartContainerBuildTarget": "",
   "linkedRepos": [],
+
   "libReleaseOptions": {
     "nodts": false,
     "obscure": false,
@@ -22,12 +21,13 @@
     "cliBuildNoDts": false,
     "cliBuildObscure": false,
     "cliBuildIncludeNodeModules": false,
-    "cliBuildUglify": false,
+    "cliBuildUglify": false
   },
+
   "smartContainerTarget": "",
   "license": "MIT",
   "author": "Dariusz Filipiak @darekf77",
   "type": "isomorphic-lib",
-  "version": "v16",
-  "private": false,
+  "version": "v18",
+  "private": false
 }
