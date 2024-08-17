@@ -33,7 +33,7 @@
     "private": false
   },
   "name": "isomorphic-region-loader",
-  "version": "18.0.4",
+  "version": "18.0.5",
   "author": "Dariusz Filipiak @darekf77",
   "license": "MIT",
   "devDependencies": {
