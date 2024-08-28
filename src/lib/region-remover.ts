@@ -1,10 +1,10 @@
-import { _, path } from 'tnp-core';
+import { _, path } from 'tnp-core/src';
 // import { Models } from 'tnp-models';
-import { Helpers } from 'tnp-core';
+import { Helpers } from 'tnp-core/src';
 import { Region } from './region';
 // @ts-ignore
 import { CoreModels } from 'tnp-core/src';
-import { REGEX_REGION, TAGS } from 'tnp-config';
+import { REGEX_REGION, TAGS } from 'tnp-config/src';
 
 
 export class RegionRemover {

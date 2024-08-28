@@ -1,8 +1,8 @@
-import { Helpers, _ } from 'tnp-core';
+import { Helpers, _ } from 'tnp-core/src';
 import { Replacement, ReplacementString, labelReplacementCode } from './models';
 // import { codeCuttFn } from '../code-cut';
 import type { RegionRemover } from './region-remover';
-import { TAGS } from 'tnp-config';
+import { TAGS } from 'tnp-config/src';
 
 export class Region {
   constructor(
