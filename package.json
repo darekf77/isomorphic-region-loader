@@ -30,7 +30,8 @@
     "author": "Dariusz Filipiak @darekf77",
     "type": "isomorphic-lib",
     "version": "v18",
-    "private": false
+    "private": false,
+    "packageJsonOverride": {}
   },
   "name": "isomorphic-region-loader",
   "version": "18.0.20",

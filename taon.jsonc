@@ -29,5 +29,6 @@
   "author": "Dariusz Filipiak @darekf77",
   "type": "isomorphic-lib",
   "version": "v18",
-  "private": false
+  "private": false,
+  "packageJsonOverride": {}
 }
