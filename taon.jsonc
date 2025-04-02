@@ -1,8 +1,8 @@
 {
+  "resources": [],
   "type": "isomorphic-lib",
   "version": "v18",
   "dependenciesNamesForNpmLib": ["tnp-models"],
-  "resources": [],
 
   "packageJsonOverride": {
     "author": "Dariusz Filipiak @darekf77",
