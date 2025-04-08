@@ -52,6 +52,9 @@
     "**/devDependencies.json": true,
     "**/package.json": true,
     "**/logo.svg": true,
+    ".firedev": true,
+    ".taon": true,
+    ".tnp": true,
     "**/*.filetemplate": true,
     "**/tsconfig.*": true,
     "**/tslint.*": true,
@@ -148,11 +151,13 @@
   ],
   "json.schemas": [{
     "fileMatch": [
-      "/docs-config.jsonc"
+      "/taon.jsonc"
     ],
-    "url": "./docs-config.schema.json"
+    "url": "./taon-config-standalone.schema.json"
   }, {
-    "fileMatch": ["/taon.jsonc"],
-    "url": "./taon-config.schema.json"
+    "fileMatch": [
+      "/taon.jsonc"
+    ],
+    "url": "./taon-config-standalone.schema.json"
   }]
 }

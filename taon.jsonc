@@ -1,33 +1,17 @@
 {
-  "resources": [],
-
-  "overrided": {
-    "linkedFolders": [],
-    "ignoreDepsPattern": ["*"],
-    "includeAsDev": [],
-    "includeOnly": ["tnp-models"],
-    "dependencies": {},
-    "npmFixes": []
-  },
-
-  "smartContainerBuildTarget": "",
-  "linkedRepos": [],
-
-  "libReleaseOptions": {
-    "nodts": false,
-    "obscure": false,
-    "ugly": false,
-    "includeNodeModules": false,
-    "cliBuildNoDts": false,
-    "cliBuildObscure": false,
-    "cliBuildIncludeNodeModules": false,
-    "cliBuildUglify": false
-  },
-
-  "smartContainerTarget": "",
-  "license": "MIT",
-  "author": "Dariusz Filipiak @darekf77",
   "type": "isomorphic-lib",
   "version": "v18",
-  "private": false
+  "dependenciesNamesForNpmLib": ["tnp-models"],
+
+  "autoReleaseConfigAllowedItems": [{
+    "artifactName": "npm-lib-and-cli-tool"
+  }],
+
+  "resources": [],
+
+  "packageJsonOverride": {
+    "author": "Dariusz Filipiak @darekf77",
+    "license": "MIT",
+    "private": false
+  }
 }
