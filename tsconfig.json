@@ -1,10 +1,16 @@
 {
   "extends": "./tsconfig.isomorphic.json",
   "compilerOptions": {
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
     "strictNullChecks": false,
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "paths": {
+      "isomorphic-region-loader": [
+        "./src/lib"
+      ],
+      "isomorphic-region-loader/*": [
+        "./src/lib/*"
+      ]
+    }
   },
   "include": [
     "src/**/*"
