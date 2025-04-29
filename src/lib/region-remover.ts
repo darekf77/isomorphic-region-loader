@@ -1,11 +1,10 @@
-import { _, path } from 'tnp-core/src';
-// import { Models } from 'tnp-models';
-import { Helpers } from 'tnp-core/src';
-import { Region } from './region';
-// @ts-ignore
-import { CoreModels } from 'tnp-core/src';
 import { REGEX_REGION, TAGS } from 'tnp-config/src';
+import { _, path } from 'tnp-core/src';
+import { Helpers } from 'tnp-core/src';
+import { CoreModels } from 'tnp-core/src';
+import { UtilsTypescript } from 'tnp-helpers/src';
 
+import { Region } from './region';
 
 export class RegionRemover {
   private root: Region;
@@ -16,8 +15,8 @@ export class RegionRemover {
     content: string,
     replacementss?: any, // Models.dev.Replacement[],
     project?: any, // Project,
+    // debug = false,
   ) {
-
     let fileExtension = path.extname(realtiveOrAbsFilePAth);
 
     if (!replacementss) {
@@ -26,7 +25,14 @@ export class RegionRemover {
         TAGS.BACKEND as any,
       ];
     }
-    return new RegionRemover(realtiveOrAbsFilePAth, fileExtension as any, content, replacementss, project);
+    return new RegionRemover(
+      realtiveOrAbsFilePAth,
+      fileExtension as any,
+      content,
+      replacementss,
+      project,
+      // debug,
+    );
   }
 
   private matchStartRegion(l: string) {
@@ -38,36 +44,44 @@ export class RegionRemover {
     return res;
   }
 
-
   private constructor(
     public readonly realtiveOrAbsFilePAth: string,
     fileExtension: CoreModels.CutableFileExt,
     private content: string,
     replacementss?: any, // Models.dev.Replacement[],
     public readonly project?: any, // Project
-
+    // public readonly debug = false,
   ) {
-    if ((REGEX_REGION.TS_JS_SCSS_SASS.EXT).includes(fileExtension)) {
+    if (REGEX_REGION.TS_JS_SCSS_SASS.EXT.includes(fileExtension)) {
       this.START_REGION.push(REGEX_REGION.TS_JS_SCSS_SASS.START);
       this.END_REGION.push(REGEX_REGION.TS_JS_SCSS_SASS.END);
     }
-    if ((REGEX_REGION.HTML.EXT).includes(fileExtension)) {
+    if (REGEX_REGION.HTML.EXT.includes(fileExtension)) {
       this.START_REGION.push(REGEX_REGION.HTML.START);
       this.END_REGION.push(REGEX_REGION.HTML.END);
     }
-    if ((REGEX_REGION.CSS.EXT).includes(fileExtension)) {
+    if (REGEX_REGION.CSS.EXT.includes(fileExtension)) {
       this.START_REGION.push(REGEX_REGION.CSS.START);
       this.END_REGION.push(REGEX_REGION.CSS.END);
     }
+
+    this.content = UtilsTypescript.removeTaggedImportExport(
+      this.content,
+      replacementss,
+      // debug,
+    );
 
     const lines = this.content.split('\n');
     this.root = new Region(
       this,
       replacementss,
       void 0,
-      0, (lines.length - 1),
-      _.first(lines), _.last(lines),
-      lines);
+      0,
+      lines.length - 1,
+      _.first(lines),
+      _.last(lines),
+      lines,
+    );
     this.tree(this.root);
   }
 
@@ -87,7 +101,7 @@ export class RegionRemover {
           node.addNormalLine(l, 0);
           continue;
         }
-        if (i === (node.contentLines.length - 1)) {
+        if (i === node.contentLines.length - 1) {
           node.addNormalLine(l, i);
           continue;
         }
@@ -104,7 +118,7 @@ export class RegionRemover {
             stack--;
           }
         } else {
-          if (i === (node.contentLines.length - (node.isRoot ? 1 : 2))) {
+          if (i === node.contentLines.length - (node.isRoot ? 1 : 2)) {
             stack = 0;
             node.endLastRegion(i, l);
           } else {
@@ -135,5 +149,4 @@ export class RegionRemover {
   get output() {
     return this.root.toString();
   }
-
 }
