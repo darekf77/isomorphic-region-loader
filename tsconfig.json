@@ -4,10 +4,16 @@
     "strictNullChecks": false,
     "rootDir": "./src",
     "paths": {
-      "isomorphic-region-loader": [
+      "@lib": [
         "./src/lib"
       ],
-      "isomorphic-region-loader/*": [
+      "@lib/*": [
+        "./src/lib/*"
+      ],
+      "isomorphic-region-loader/src": [
+        "./src/lib"
+      ],
+      "isomorphic-region-loader/src/*": [
         "./src/lib/*"
       ]
     }
