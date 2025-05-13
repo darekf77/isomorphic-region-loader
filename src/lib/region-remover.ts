@@ -65,11 +65,12 @@ export class RegionRemover {
       this.END_REGION.push(REGEX_REGION.CSS.END);
     }
 
-    this.content = UtilsTypescript.removeTaggedImportExport(
-      this.content,
-      replacementss,
-      // debug,
-    );
+    this.content =
+      UtilsTypescript.removeTaggedImportExport(
+        this.content,
+        replacementss,
+        // debug,
+      ) || '';
 
     const lines = this.content.split('\n');
     this.root = new Region(
