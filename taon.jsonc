@@ -2,6 +2,7 @@
   "type": "isomorphic-lib",
   "version": "v19",
   "dependenciesNamesForNpmLib": ["tnp-models"],
+  "appId": "com.domain.example.isomorphic-region-loader",
 
   "autoReleaseConfigAllowedItems": [{
     "artifactName": "npm-lib-and-cli-tool"
@@ -13,7 +14,7 @@
     "author": "Dariusz Filipiak @darekf77",
     "license": "MIT",
     "private": false,
-
-    "scripts": {}
+    "scripts": {},
+    "description": "Description for isomorphic-region-loader. Hello world!"
   }
 }
