@@ -12,9 +12,9 @@
 
   "packageJsonOverride": {
     "author": "Dariusz Filipiak @darekf77",
+    "description": "Description for isomorphic-region-loader. Hello world!",
     "license": "MIT",
     "private": false,
-    "scripts": {},
-    "description": "Description for isomorphic-region-loader. Hello world!"
+    "scripts": {}
   }
 }
