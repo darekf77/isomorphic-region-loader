@@ -1,3 +1,4 @@
+//#region imports
 import { REGEX_REGION, TAGS } from 'tnp-core/src';
 import { _, path } from 'tnp-core/src';
 import { Helpers } from 'tnp-core/src';
@@ -5,11 +6,15 @@ import { CoreModels } from 'tnp-core/src';
 import { UtilsTypescript } from 'tnp-helpers/src';
 
 import { Region } from './region';
+//#endregion
 
 export class RegionRemover {
   private root: Region;
+
   private readonly START_REGION: RegExp[] = [];
+
   private readonly END_REGION: RegExp[] = [];
+
   public static from(
     realtiveOrAbsFilePAth: string,
     content: string,
@@ -39,6 +44,7 @@ export class RegionRemover {
     const res = !_.isUndefined(this.START_REGION.find(r => l.match(r)));
     return res;
   }
+
   private matchEndRegion(l: string) {
     const res = !_.isUndefined(this.END_REGION.find(r => l.match(r)));
     return res;

@@ -1,8 +1,11 @@
+//#region imports
 import { Helpers, _ } from 'tnp-core/src';
+import { TAGS } from 'tnp-core/src';
+
 import { Replacement, ReplacementString, labelReplacementCode } from './models';
 // import { codeCuttFn } from '../code-cut';
 import type { RegionRemover } from './region-remover';
-import { TAGS } from 'tnp-core/src';
+//#endregion
 
 export class Region {
   constructor(
@@ -14,9 +17,10 @@ export class Region {
     public lineStart: string,
     public lineEnd: string,
     public contentLines: string[] = [],
+  ) {}
 
-  ) { }
   private tmpOutput: string;
+
   public get hasEnd() {
     return this.endIndex !== void 0;
   }
@@ -54,28 +58,37 @@ export class Region {
     this.lastRegionWithoutEnd.contentLines.push(l);
   }
 
-  addRegion(context: RegionRemover, parent: Region, startIndex: number, lineStart: string) {
+  addRegion(
+    context: RegionRemover,
+    parent: Region,
+    startIndex: number,
+    lineStart: string,
+  ) {
     this.contentLines[startIndex] = void 0;
     const newReg = new Region(
       context,
       this.replacementss,
       parent,
-      startIndex, void 0,
-      lineStart, void 0,
-      [lineStart]
+      startIndex,
+      void 0,
+      lineStart,
+      void 0,
+      [lineStart],
     );
     this.regionsOrStrings.push(newReg);
   }
 
   endLastRegion(endIndex: number, lineEnd: string) {
     this.contentLines[endIndex] = void 0;
-    const regionWithoutEnd = this.regionsOrStrings.find(r => r instanceof Region && !r.hasEnd) as Region;
+    const regionWithoutEnd = this.regionsOrStrings.find(
+      r => r instanceof Region && !r.hasEnd,
+    ) as Region;
     regionWithoutEnd.contentLines.push(lineEnd);
     regionWithoutEnd.setEnd(endIndex, lineEnd);
   }
 
   private containsTitle(s: ReplacementString) {
-    const res = (this.titleString.search(s) !== -1);
+    const res = this.titleString.search(s) !== -1;
     // Helpers.log(`checking tag (${res}): "${s}" in line: "${this.titleString}"`)
     return res;
   }
@@ -84,13 +97,8 @@ export class Region {
     let line = this.lineStart;
     const regionWord = '#region';
     const indexOfRegion = line.search(regionWord);
-    line = line.replace(
-      line.slice(0, indexOfRegion + regionWord.length),
-      ''
-    );
-    return line
-      .replace('-->', '')
-      .replace('<!--', ''); // TODO not necessery ?
+    line = line.replace(line.slice(0, indexOfRegion + regionWord.length), '');
+    return line.replace('-->', '').replace('<!--', ''); // TODO not necessery ?
   }
 
   public toString() {
@@ -107,70 +115,96 @@ export class Region {
             const rep = replacements[index];
             const isArr = _.isArray(replacements[index]);
 
-            const regionTag = (isArr ? _.first(rep as string[]) : rep) as ReplacementString;
+            const regionTag = (
+              isArr ? _.first(rep as string[]) : rep
+            ) as ReplacementString;
 
             let out = (isArr ? rep[1] : '') as string;
 
-            const verticalLength = regionOrString.toString().split('\n').length - 1;
+            const verticalLength =
+              regionOrString.toString().split('\n').length - 1;
 
             if (regionOrString.containsTitle(regionTag)) {
               if (regionTag.toLowerCase() === TAGS.WEBSQL.toLowerCase()) {
-                out = `${_.times(verticalLength).map(() => labelReplacementCode.backendCode + '\n').join('')}  ${out}`;
+                out = `${_.times(verticalLength)
+                  .map(() => labelReplacementCode.backendCode + '\n')
+                  .join('')}  ${out}`;
               }
               if (regionTag.toLowerCase() === TAGS.BACKEND.toLowerCase()) {
-                out = `${_.times(verticalLength).map(() => labelReplacementCode.backendCode + '\n').join('')}  ${out}`;
+                out = `${_.times(verticalLength)
+                  .map(() => labelReplacementCode.backendCode + '\n')
+                  .join('')}  ${out}`;
               }
               if (regionTag.toLowerCase() === TAGS.NOT_FOR_NPM.toLowerCase()) {
-                out = `${_.times(verticalLength).map(() => labelReplacementCode.notForNpmCode + '\n').join('')}  ${out}`;
+                out = `${_.times(verticalLength)
+                  .map(() => labelReplacementCode.notForNpmCode + '\n')
+                  .join('')}  ${out}`;
               }
               if (regionTag.toLowerCase() === TAGS.BROWSER.toLowerCase()) {
-                out = `${_.times(verticalLength).map(() => labelReplacementCode.browserCode + '\n').join('')}  ${out}`;
+                out = `${_.times(verticalLength)
+                  .map(() => labelReplacementCode.browserCode + '\n')
+                  .join('')}  ${out}`;
               }
               if (regionTag.toLowerCase() === TAGS.WEBSQL_ONLY.toLowerCase()) {
-                out = `${_.times(verticalLength).map(() => labelReplacementCode.backendCode + '\n').join('')}  ${out}`;
+                out = `${_.times(verticalLength)
+                  .map(() => labelReplacementCode.backendCode + '\n')
+                  .join('')}  ${out}`;
               }
-              if (
-                regionTag.toLowerCase() === TAGS.BACKEND_FUNC.toLowerCase()
-              ) {
+              if (regionTag.toLowerCase() === TAGS.BACKEND_FUNC.toLowerCase()) {
                 let spacesPrevious = previous.search(/\S/);
-                spacesPrevious = (spacesPrevious < 0 ? 0 : spacesPrevious);
-                out = `${_.times(verticalLength).map(() => labelReplacementCode.backendCode + '\n').join('')}`
-                  + `${_.times(spacesPrevious).map(n => ' ').join('')}  ${out}`;
+                spacesPrevious = spacesPrevious < 0 ? 0 : spacesPrevious;
+                out =
+                  `${_.times(verticalLength)
+                    .map(() => labelReplacementCode.backendCode + '\n')
+                    .join('')}` +
+                  `${_.times(spacesPrevious)
+                    .map(n => ' ')
+                    .join('')}  ${out}`;
               }
-              if (
-                regionTag.toLowerCase() === TAGS.WEBSQL_FUNC.toLowerCase()
-              ) {
+              if (regionTag.toLowerCase() === TAGS.WEBSQL_FUNC.toLowerCase()) {
                 let spacesPrevious = previous.search(/\S/);
-                spacesPrevious = (spacesPrevious < 0 ? 0 : spacesPrevious);
-                out = `${_.times(verticalLength).map(() => labelReplacementCode.backendCode + '\n').join('')}`
-                  + `${_.times(spacesPrevious).map(n => ' ').join('')}  ${out}`;
+                spacesPrevious = spacesPrevious < 0 ? 0 : spacesPrevious;
+                out =
+                  `${_.times(verticalLength)
+                    .map(() => labelReplacementCode.backendCode + '\n')
+                    .join('')}` +
+                  `${_.times(spacesPrevious)
+                    .map(n => ' ')
+                    .join('')}  ${out}`;
               }
               if (
-                regionTag.toLowerCase() === TAGS.CUT_CODE_IF_TRUE.toLowerCase()
-                ||
+                regionTag.toLowerCase() ===
+                  TAGS.CUT_CODE_IF_TRUE.toLowerCase() ||
                 regionTag.toLowerCase() === TAGS.CUT_CODE_IF_FALSE.toLowerCase()
               ) {
                 const fn = out as any; // as ReturnType<typeof codeCuttFn>;
                 let expressionToExecute = regionOrString.titleString;
                 // Helpers.log(`LINE: "${regionOrString.lineStart}"`);
-                expressionToExecute = expressionToExecute.replace(regionTag, '');
+                expressionToExecute = expressionToExecute.replace(
+                  regionTag,
+                  '',
+                );
                 // Helpers.log(`Expresion to evaluate "${expressionToExecute}"`);
                 // Helpers.log(`this.project "${this.project.name}"`);
-                const configForProject = this.project && this.project.env.config;
+                const configForProject =
+                  this.project && this.project.env.config;
                 // Helpers.log(`configForProject "${configForProject}"`);
-                const cutCode = fn(expressionToExecute, configForProject, this.realtiveOrAbsFilePAth);
+                const cutCode = fn(
+                  expressionToExecute,
+                  configForProject,
+                  this.realtiveOrAbsFilePAth,
+                );
                 // Helpers.info(`Cut code: "${cutCode}"`);
                 if (cutCode === null) {
                   continue;
                 }
                 if (
-                  (cutCode && (
-                    regionTag.toLowerCase() === TAGS.CUT_CODE_IF_TRUE.toLowerCase()
-                  ))
-                  ||
-                  (!cutCode && (
-                    regionTag.toLowerCase() === TAGS.CUT_CODE_IF_FALSE.toLowerCase()
-                  ))
+                  (cutCode &&
+                    regionTag.toLowerCase() ===
+                      TAGS.CUT_CODE_IF_TRUE.toLowerCase()) ||
+                  (!cutCode &&
+                    regionTag.toLowerCase() ===
+                      TAGS.CUT_CODE_IF_FALSE.toLowerCase())
                 ) {
                   out = '';
                 } else {
@@ -186,7 +220,8 @@ export class Region {
         const res = regionOrString.toString();
         previous = res;
         return res;
-      }).join('\n');
+      })
+      .join('\n');
     return this.tmpOutput;
   }
 
@@ -197,6 +232,4 @@ export class Region {
   private get realtiveOrAbsFilePAth() {
     return this.context.realtiveOrAbsFilePAth;
   }
-
 }
-
