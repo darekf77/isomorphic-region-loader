@@ -1,7 +1,7 @@
 {
   "type": "isomorphic-lib",
   "version": "v21",
-  "dependenciesNamesForNpmLib": ["tnp-models"],
+  "dependenciesNamesForNpmLib": [],
   "appId": "com.domain.example.isomorphic-region-loader",
 
   "autoReleaseConfigAllowedItems": [
