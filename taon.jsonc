@@ -7,11 +7,11 @@
   "autoReleaseConfigAllowedItems": [
     {
       "artifactName": "npm-lib-and-cli-tool",
-      "taskName": "npm"
+      "taskName": "npm",
     },
   ],
 
-  "isomorphicDependenciesForNpmLib": [],
+  "isomorphicDependenciesForNpmLib": ["tnp-helpers"],
   "peerDependenciesNamesForNpmLib": [],
   "resources": [],
 
