@@ -11,7 +11,7 @@
     },
   ],
 
-  "isomorphicDependenciesForNpmLib": ["tnp-helpers"],
+  "isomorphicDependenciesForNpmLib": ["tnp-core", "tnp-helpers"],
   "peerDependenciesNamesForNpmLib": [],
   "resources": [],
 
