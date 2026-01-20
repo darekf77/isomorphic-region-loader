@@ -1,6 +1,6 @@
 {
   "name": "isomorphic-region-loader",
-  "version": "21.0.18",
+  "version": "21.0.19",
   "scripts": {
     "taon init": "taon init",
     "taon start": "taon start",
