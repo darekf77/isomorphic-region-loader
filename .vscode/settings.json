@@ -147,7 +147,7 @@
   "tslint.alwaysShowRuleFailuresAsWarnings": false,
   "prettier.endOfLine": "auto",
   "prettier.prettierPath": "./node_modules/prettier",
-  "window.title": "npm/taon-dev/isomorphic-region-loader  [ ${activeEditorShort} ]",
+  "window.title": "taon-dev/isomorphic-region-loader () [ ${activeEditorShort}]",
   "search.useIgnoreFiles": false,
   "search.include": ["**/src/**"],
 
