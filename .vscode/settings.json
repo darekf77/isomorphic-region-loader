@@ -52,8 +52,6 @@
     "*.schema.json": true
   },
 
-  "workbench.colorTheme": "Default Light+",
-
   "workbench.colorCustomizations": {
     "activityBar.background": "#115309",
     "statusBar.background": "#c026b3",
