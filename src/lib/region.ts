@@ -23,6 +23,7 @@ export type Replacement<EnvConfig = any> =
 export const labelReplacementCode = {
   browserCode: '/* */', // '/* browser code */',
   backendCode: '/* */', // '/* backend code */',
+  nodejsCode: '/* */', // '/* nodejs backend code */',
   cjsRemove: '/* */', // '/* backend cjs code */',
   esmRemove: '/* */', // '/* backend esm code */',
   notForNpmCode: '/* */', //'/* not for npm lib code */',
@@ -155,12 +156,12 @@ export class Region {
             if (regionOrString.containsTitle(regionTag)) {
               if (regionTag.toLowerCase() === TAGS.CJS_REMOVE.toLowerCase()) {
                 out = `${_.times(verticalLength)
-                  .map(() => labelReplacementCode.backendCode + '\n')
+                  .map(() => labelReplacementCode.cjsRemove + '\n')
                   .join('')}  ${out}`;
               }
               if (regionTag.toLowerCase() === TAGS.ESM_REMOVE.toLowerCase()) {
                 out = `${_.times(verticalLength)
-                  .map(() => labelReplacementCode.backendCode + '\n')
+                  .map(() => labelReplacementCode.esmRemove + '\n')
                   .join('')}  ${out}`;
               }
               if (regionTag.toLowerCase() === TAGS.WEBSQL.toLowerCase()) {
@@ -170,7 +171,7 @@ export class Region {
               }
               if (regionTag.toLowerCase() === TAGS.BACKEND.toLowerCase()) {
                 out = `${_.times(verticalLength)
-                  .map(() => labelReplacementCode.backendCode + '\n')
+                  .map(() => labelReplacementCode.nodejsCode + '\n')
                   .join('')}  ${out}`;
               }
               if (regionTag.toLowerCase() === TAGS.NOT_FOR_NPM.toLowerCase()) {
@@ -193,7 +194,7 @@ export class Region {
                 spacesPrevious = spacesPrevious < 0 ? 0 : spacesPrevious;
                 out =
                   `${_.times(verticalLength)
-                    .map(() => labelReplacementCode.backendCode + '\n')
+                    .map(() => labelReplacementCode.nodejsCode + '\n')
                     .join('')}` +
                   `${_.times(spacesPrevious)
                     .map(n => ' ')
@@ -205,6 +206,17 @@ export class Region {
                 out =
                   `${_.times(verticalLength)
                     .map(() => labelReplacementCode.backendCode + '\n')
+                    .join('')}` +
+                  `${_.times(spacesPrevious)
+                    .map(n => ' ')
+                    .join('')}  ${out}`;
+              }
+              if (regionTag.toLowerCase() === TAGS.BROWSER_FUNC.toLowerCase()) {
+                let spacesPrevious = previous.search(/\S/);
+                spacesPrevious = spacesPrevious < 0 ? 0 : spacesPrevious;
+                out =
+                  `${_.times(verticalLength)
+                    .map(() => labelReplacementCode.browserCode + '\n')
                     .join('')}` +
                   `${_.times(spacesPrevious)
                     .map(n => ' ')

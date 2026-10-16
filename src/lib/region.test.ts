@@ -1,4 +1,3 @@
-// @taonSkipCut
 import { TAGS, taonSkipCut, taonCutNextLineCut } from 'tnp-core/src';
 
 import { RegionRemover } from './region';
@@ -17,9 +16,9 @@ describe('RegionRemover', () => {
     const source = `
 const before = true;
 
-//#region ${TAGS.BACKEND}
+//${'#reg' + 'ion'} ${TAGS.BACKEND}
 const removeMe = true;
-//#endregion
+${'//#end' + 'reg' + 'ion'}
 
 const after = true;
 `.trim();
@@ -36,17 +35,17 @@ const after = true;
     const source = `
 const before = true;
 
-//#region ${TAGS.BACKEND}
+//${'#reg' + 'ion'} ${TAGS.BACKEND}
 
 const remove1 = true;
 
-//#region somethingElse
+//${'#reg' + 'ion'} somethingElse
 const remove2 = true;
-//#endregion
+${'//#end' + 'reg' + 'ion'}
 
 const remove3 = true;
 
-//#endregion
+${'//#end' + 'reg' + 'ion'}
 
 const after = true;
 `.trim();
@@ -66,30 +65,32 @@ const after = true;
 const before = true;
 
 // ${TAON_SKIP_NEXT_LINE_CUT}
-const generated = '//#region ${TAGS.BACKEND}';
+const generated = '//${'#reg' + 'ion'} ${TAGS.BACKEND}';
 
 const shouldStay = true;
 `.trim();
 
     const result = process(source);
 
-    expect(result).toContain(`const generated = '//#region ${TAGS.BACKEND}';`);
+    expect(result).toContain(
+      `const generated = '//${'#reg' + 'ion'} ${TAGS.BACKEND}';`,
+    );
 
     expect(result).toContain('const shouldStay = true;');
   });
 
   it('should ignore region end on line after @taonSkipNextLineCut', () => {
     const source = `
-//#region ${TAGS.BACKEND}
+//${'#reg' + 'ion'} ${TAGS.BACKEND}
 
 const remove1 = true;
 
 // ${TAON_SKIP_NEXT_LINE_CUT}
-const generated = '//#endregion';
+const generated = '${'//#end' + 'reg' + 'ion'}';
 
 const remove2 = true;
 
-//#endregion
+${'//#end' + 'reg' + 'ion'}
 
 const after = true;
 `.trim();
@@ -107,7 +108,7 @@ const after = true;
 const before = true;
 
 // ${TAON_SKIP_NEXT_LINE_CUT}
-const generated = '//#region ${TAGS.BACKEND} //#endregion';
+const generated = '//${'#reg' + 'ion'} ${TAGS.BACKEND} ${'//#end' + 'reg' + 'ion'}';
 
 const after = true;
 `.trim();
@@ -115,7 +116,7 @@ const after = true;
     const result = process(source);
 
     expect(result).toContain(
-      `const generated = '//#region ${TAGS.BACKEND} //#endregion';`,
+      `const generated = '//${'#reg' + 'ion'} ${TAGS.BACKEND} ${'//#end' + 'reg' + 'ion'}';`,
     );
 
     expect(result).toContain('const after = true;');
@@ -126,18 +127,20 @@ const after = true;
 const before = true;
 
 // ${TAON_SKIP_NEXT_LINE_CUT}
-const fake = '//#region ${TAGS.BACKEND}';
+const fake = '//${'#reg' + 'ion'} ${TAGS.BACKEND}';
 
-//#region ${TAGS.BACKEND}
+//${'#reg' + 'ion'} ${TAGS.BACKEND}
 const removeMe = true;
-//#endregion
+${'//#end' + 'reg' + 'ion'}
 
 const after = true;
 `.trim();
 
     const result = process(source);
 
-    expect(result).toContain(`const fake = '//#region ${TAGS.BACKEND}';`);
+    expect(result).toContain(
+      `const fake = '//${'#reg' + 'ion'} ${TAGS.BACKEND}';`,
+    );
 
     expect(result).not.toContain('const removeMe = true;');
     expect(result).toContain('const after = true;');
@@ -147,14 +150,16 @@ const after = true;
     const source = `
 // ${TAON_SKIP_NEXT_LINE_CUT}
 // ${TAON_SKIP_NEXT_LINE_CUT}
-const fake = '//#region ${TAGS.BACKEND}';
+const fake = '//${'#reg' + 'ion'} ${TAGS.BACKEND}';
 
 const after = true;
 `.trim();
 
     const result = process(source);
 
-    expect(result).toContain(`const fake = '//#region ${TAGS.BACKEND}';`);
+    expect(result).toContain(
+      `const fake = '//${'#reg' + 'ion'} ${TAGS.BACKEND}';`,
+    );
 
     expect(result).toContain('const after = true;');
   });
@@ -162,14 +167,14 @@ const after = true;
   it('should treat stray endregion as normal text', () => {
     const source = `
 const before = true;
-//#endregion
+${'//#end' + 'reg' + 'ion'}
 const after = true;
 `.trim();
 
     const result = process(source);
 
     expect(result).toContain('const before = true;');
-    expect(result).toContain('//#endregion');
+    expect(result).toContain(`${'//#end' + 'reg' + 'ion'}`);
     expect(result).toContain('const after = true;');
   });
 });
