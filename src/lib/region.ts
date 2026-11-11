@@ -13,6 +13,7 @@ import { ReplacementString } from 'tnp-core/src'; // (at)backend , (at)frontend 
 import { UtilsTypescript } from 'tnp-helpers/src';
 //#endregion
 
+//#region constnats / label code replacement
 /*
 export type Replacement<EnvConfig = any> =
   | ReplacementString
@@ -30,13 +31,17 @@ export const labelReplacementCode = {
   onlyForGithubDocs: '/* */', // '/* only for github docs */',
   flatenImportExportRequred: '/* */', // '/* only for github docs */',
 };
+//#endregion
 
+//#region models / replace options extended
 export interface ReplaceOptionsExtended<EnvConfig = any> {
   replacements: Replacement[];
   env?: EnvConfig;
 }
+//#endregion
 
 export class Region {
+  //#region constructor
   constructor(
     private context: RegionRemover,
     public replacementss: Replacement[],
@@ -47,8 +52,12 @@ export class Region {
     public lineEnd: string,
     public contentLines: string[] = [],
   ) {}
+  //#endregion
 
+  //#region fields & getters
   private tmpOutput: string;
+
+  private regionsOrStrings: (Region | string)[] = [];
 
   public get hasEnd() {
     return this.endIndex !== void 0;
@@ -62,31 +71,53 @@ export class Region {
     return void 0;
   }
 
-  private regionsOrStrings: (Region | string)[] = [];
-
   get regions() {
     return this.regionsOrStrings.filter(f => f instanceof Region);
-  }
-
-  private setEnd(endIndex: number, lineEnd: string) {
-    this.endIndex = endIndex;
-    this.lineEnd = lineEnd;
   }
 
   get isRoot() {
     return !this.parent;
   }
 
+  private get titleString() {
+    let line = this.lineStart;
+    const regionWord = '#reg' + 'ion';
+    const indexOfRegion = line.search(regionWord);
+    line = line.replace(line.slice(0, indexOfRegion + regionWord.length), '');
+    return line.replace('-->', '').replace('<!--', ''); // TODO not necessery ?
+  }
+
+  private get callbackForEnv() {
+    return this.context.callbackForEnv;
+  }
+
+  private get realtiveOrAbsFilePAth() {
+    return this.context.realtiveOrAbsFilePAth;
+  }
+  //#endregion
+
+  //#region methods / set end
+  private setEnd(endIndex: number, lineEnd: string) {
+    this.endIndex = endIndex;
+    this.lineEnd = lineEnd;
+  }
+  //#endregion
+
+  //#region methods / add normal line
   addNormalLine(l: string, lineIndex: number) {
     this.contentLines[lineIndex] = void 0;
     this.regionsOrStrings.push(l);
   }
+  //#endregion
 
+  //#region methods / add normal line to last region
   addNormalLineToLastRegion(l: string, lineIndex: number) {
     this.contentLines[lineIndex] = void 0;
     this.lastRegionWithoutEnd.contentLines.push(l);
   }
+  //#endregion
 
+  //#region methods / add region
   addRegion(
     context: RegionRemover,
     parent: Region,
@@ -106,7 +137,9 @@ export class Region {
     );
     this.regionsOrStrings.push(newReg);
   }
+  //#endregion
 
+  //#region methods / end last region
   endLastRegion(endIndex: number, lineEnd: string) {
     this.contentLines[endIndex] = void 0;
     const regionWithoutEnd = this.regionsOrStrings.find(
@@ -115,21 +148,17 @@ export class Region {
     regionWithoutEnd.contentLines.push(lineEnd);
     regionWithoutEnd.setEnd(endIndex, lineEnd);
   }
+  //#endregion
 
+  //#region methods / contains title
   private containsTitle(s: ReplacementString) {
     const res = this.titleString.search(s) !== -1;
     // Helpers.log(`checking tag (${res}): "${s}" in line: "${this.titleString}"`)
     return res;
   }
+  //#endregion
 
-  private get titleString() {
-    let line = this.lineStart;
-    const regionWord = '#reg' + 'ion';
-    const indexOfRegion = line.search(regionWord);
-    line = line.replace(line.slice(0, indexOfRegion + regionWord.length), '');
-    return line.replace('-->', '').replace('<!--', ''); // TODO not necessery ?
-  }
-
+  //#region API / to string
   public toString() {
     if (this.tmpOutput !== void 0) {
       return this.tmpOutput;
@@ -273,58 +302,23 @@ export class Region {
       .join('\n');
     return this.tmpOutput;
   }
-
-  private get callbackForEnv() {
-    return this.context.callbackForEnv;
-  }
-
-  private get realtiveOrAbsFilePAth() {
-    return this.context.realtiveOrAbsFilePAth;
-  }
+  //#endregion
 }
 
 export class RegionRemover {
+  //#region fields & getters
   private root: Region;
 
   private readonly START_REGION: RegExp[] = [];
 
   private readonly END_REGION: RegExp[] = [];
 
-  public static from(
-    realtiveOrAbsFilePAth: string,
-    content: string,
-    replacementss?: Replacement[],
-    callbackForEnv?: () => any, // return environment config for project,
-    // debug = false,
-  ) {
-    let fileExtension = path.extname(realtiveOrAbsFilePAth);
-
-    if (!replacementss) {
-      replacementss = [
-        [TAGS.BACKEND_FUNC, `return (void 0);`],
-        TAGS.BACKEND as any,
-      ];
-    }
-    return new RegionRemover(
-      realtiveOrAbsFilePAth,
-      fileExtension as any,
-      content,
-      replacementss,
-      callbackForEnv,
-      // debug,
-    );
+  get output() {
+    return this.root.toString();
   }
+  //#endregion
 
-  private matchStartRegion(l: string) {
-    const res = !_.isUndefined(this.START_REGION.find(r => l.match(r)));
-    return res;
-  }
-
-  private matchEndRegion(l: string) {
-    const res = !_.isUndefined(this.END_REGION.find(r => l.match(r)));
-    return res;
-  }
-
+  //#region cosntructor
   private constructor(
     public readonly realtiveOrAbsFilePAth: string,
     fileExtension: CoreModels.CutableFileExt,
@@ -366,11 +360,56 @@ export class RegionRemover {
     );
     this.tree(this.root);
   }
+  //#endregion
 
+  //#region API / from
+  public static from(
+    realtiveOrAbsFilePAth: string,
+    content: string,
+    replacementss?: Replacement[],
+    callbackForEnv?: () => any, // return environment config for project,
+    // debug = false,
+  ) {
+    let fileExtension = path.extname(realtiveOrAbsFilePAth);
+
+    if (!replacementss) {
+      replacementss = [
+        [TAGS.BACKEND_FUNC, `return (void 0);`],
+        TAGS.BACKEND as any,
+      ];
+    }
+    return new RegionRemover(
+      realtiveOrAbsFilePAth,
+      fileExtension as any,
+      content,
+      replacementss,
+      callbackForEnv,
+      // debug,
+    );
+  }
+  //#endregion
+
+  //#region methods / match start region
+  private matchStartRegion(l: string) {
+    const res = !_.isUndefined(this.START_REGION.find(r => l.match(r)));
+    return res;
+  }
+  //#endregion
+
+  //#region methods / match end region
+  private matchEndRegion(l: string) {
+    const res = !_.isUndefined(this.END_REGION.find(r => l.match(r)));
+    return res;
+  }
+  //#endregion
+
+  //#region methods / is skip next line cut directive
   private isSkipNextLineCutDirective(line: string): boolean {
     return line.includes(taonCutNextLineCut);
   }
+  //#endregion
 
+  //#region methods / add ordinary line
   private addOrdinaryLine(node: Region, line: string, lineIndex: number): void {
     if (node.lastRegionWithoutEnd) {
       node.addNormalLineToLastRegion(line, lineIndex);
@@ -378,7 +417,9 @@ export class RegionRemover {
       node.addNormalLine(line, lineIndex);
     }
   }
+  //#endregion
 
+  //#region methods / tree
   private tree(node: Region): void {
     const lines = node.contentLines;
 
@@ -452,8 +493,5 @@ export class RegionRemover {
       this.tree(child);
     }
   }
-
-  get output() {
-    return this.root.toString();
-  }
+  //#endregion
 }
